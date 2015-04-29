@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SimpleMove : MonoBehaviour {
+public class SimpleMove : MonoBehaviour 
+{
 
 	private float speed;
 	private PhotonView pv;
@@ -9,6 +10,8 @@ public class SimpleMove : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		transform.GetComponent<Renderer>().material.color = Color.red;
+
 		speed = 0.1f;
 		pv = PhotonView.Get(this);
 	}
@@ -34,6 +37,23 @@ public class SimpleMove : MonoBehaviour {
 			{
 				transform.Translate(-transform.right * speed);
 			}
+			if(Input.GetKeyDown(KeyCode.E))
+			{
+				this.pv.RPC ("ChangeColor", PhotonTargets.All);
+			}
+		}
+	}
+
+	[RPC]
+	public void ChangeColor()
+	{
+		if(transform.GetComponent<Renderer>().material.color == Color.red)
+		{
+			transform.GetComponent<Renderer>().material.color = Color.blue;
+		}
+		else
+		{
+			transform.GetComponent<Renderer>().material.color = Color.red;
 		}
 	}
 }
