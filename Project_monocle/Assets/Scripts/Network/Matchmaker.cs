@@ -8,6 +8,8 @@ public class Matchmaker : MonoBehaviour
 	void Start()
 	{
 		PhotonNetwork.ConnectUsingSettings("v1.0");
+
+		PhotonView.DontDestroyOnLoad(this.gameObject);
 	}
 
 	void OnGUI()
@@ -28,17 +30,18 @@ public class Matchmaker : MonoBehaviour
 	void OnCreatedRoom()
 	{
 		Debug.Log ("room created");
+		//PhotonNetwork.LoadLevel("GameTest");
 	}
 
 	void OnJoinedRoom()
 	{
 		Debug.Log ("room joined");
 
+		Destroy(GameObject.Find("Canvas"));
+
 		GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
 		Camera camera = player.transform.Find("Camera").GetComponent<Camera>();
 		camera.enabled = true;
-
-		Destroy(GameObject.Find("Canvas"));
 	}
 
 	public void CreateGame()
@@ -46,12 +49,17 @@ public class Matchmaker : MonoBehaviour
 		RoomOptions options = new RoomOptions();
 		options.maxPlayers = 2;
 		options.isOpen = true;
-		
+	
 		PhotonNetwork.CreateRoom(null, options, null);
 	}
 
 	public void JoinGame()
 	{
 		PhotonNetwork.JoinRandomRoom();
+	}
+
+	void OnLevelWasLoaded()
+	{
+
 	}
 }

@@ -14,6 +14,8 @@ public class SimpleMove : MonoBehaviour
 
 		speed = 0.1f;
 		pv = PhotonView.Get(this);
+
+		PhotonView.DontDestroyOnLoad(this.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -39,7 +41,7 @@ public class SimpleMove : MonoBehaviour
 			}
 			if(Input.GetKeyDown(KeyCode.E))
 			{
-				this.pv.RPC ("ChangeColor", PhotonTargets.All);
+				this.pv.RPC ("ChangeScene", PhotonTargets.All);
 			}
 		}
 	}
@@ -55,5 +57,11 @@ public class SimpleMove : MonoBehaviour
 		{
 			transform.GetComponent<Renderer>().material.color = Color.red;
 		}
+	}
+
+	[RPC]
+	public void ChangeScene()
+	{
+		PhotonNetwork.LoadLevel("GameTest");
 	}
 }
