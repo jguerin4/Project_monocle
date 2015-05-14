@@ -20,6 +20,9 @@ public class Matchmaker : MonoBehaviour
 	void OnJoinedLobby()
 	{
 		Debug.Log("Joined lobby");
+
+		// pour test; a enlever
+		CreateGame();
 	}
 
 	void OnPhotonRandomJoinFailed()
@@ -39,7 +42,23 @@ public class Matchmaker : MonoBehaviour
 
 		Destroy(GameObject.Find("Canvas"));
 
-		GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+		Vector3 spawnPos;
+		Quaternion spawnRot = Quaternion.identity;
+
+		if(PhotonNetwork.isMasterClient)
+		{
+			spawnPos.x = GameObject.Find("Spawn 1").transform.position.x;
+			spawnPos.y = GameObject.Find("Spawn 1").transform.position.y + 10;
+			spawnPos.z = GameObject.Find("Spawn 1").transform.position.z;
+		}
+		else
+		{
+			spawnPos.x = GameObject.Find("Spawn 2").transform.position.x;
+			spawnPos.y = GameObject.Find("Spawn 2").transform.position.y + 10;
+			spawnPos.z = GameObject.Find("Spawn 2").transform.position.z;
+		}
+
+		GameObject player = PhotonNetwork.Instantiate("Player", spawnPos, spawnRot, 0);
 		Camera camera = player.transform.Find("Camera").GetComponent<Camera>();
 		camera.enabled = true;
 	}
