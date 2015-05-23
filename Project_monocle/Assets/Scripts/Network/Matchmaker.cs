@@ -20,9 +20,6 @@ public class Matchmaker : MonoBehaviour
 	void OnJoinedLobby()
 	{
 		Debug.Log("Joined lobby");
-
-		// pour test; a enlever
-		CreateGame();
 	}
 
 	void OnPhotonRandomJoinFailed()
@@ -33,7 +30,8 @@ public class Matchmaker : MonoBehaviour
 	void OnCreatedRoom()
 	{
 		Debug.Log ("room created");
-		//PhotonNetwork.LoadLevel("GameTest");
+
+		PhotonNetwork.LoadLevel("GameTest");
 	}
 
 	void OnJoinedRoom()
@@ -51,6 +49,7 @@ public class Matchmaker : MonoBehaviour
 			spawnPos.y = GameObject.Find("Spawn 1").transform.position.y + 10;
 			spawnPos.z = GameObject.Find("Spawn 1").transform.position.z;
 		}
+
 		else
 		{
 			spawnPos.x = GameObject.Find("Spawn 2").transform.position.x;
@@ -68,17 +67,14 @@ public class Matchmaker : MonoBehaviour
 		RoomOptions options = new RoomOptions();
 		options.maxPlayers = 2;
 		options.isOpen = true;
-	
+
 		PhotonNetwork.CreateRoom(null, options, null);
 	}
 
 	public void JoinGame()
 	{
+		// Must load the right map before joining room
+		PhotonNetwork.LoadLevel("GameTest");
 		PhotonNetwork.JoinRandomRoom();
-	}
-
-	void OnLevelWasLoaded()
-	{
-
 	}
 }
