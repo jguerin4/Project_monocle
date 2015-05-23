@@ -60,6 +60,9 @@ public class Matchmaker : MonoBehaviour
 		GameObject player = PhotonNetwork.Instantiate("Player", spawnPos, spawnRot, 0);
 		Camera camera = player.transform.Find("Camera").GetComponent<Camera>();
 		camera.enabled = true;
+
+		CameraMovement cm = player.GetComponent<CameraMovement>();
+		cm.enabled = true;
 	}
 
 	public void CreateGame()
