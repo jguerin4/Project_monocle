@@ -24,19 +24,19 @@ public class CameraMovement : MonoBehaviour {
 			mousePosX = Input.mousePosition.x;
 			mousePosY = Input.mousePosition.y;
 
-			if(mousePosX >= (Screen.width - Screen.width * 0.25))
+			if(mousePosX >= (Screen.width - Screen.width * 0.1))
 			{
 				transform.Translate(transform.right * speed);
 			}
-			if(mousePosX <= (Screen.width * 0.25))
+			if(mousePosX <= (Screen.width * 0.1))
 			{
 				transform.Translate(-transform.right * speed);
 			}
-			if(mousePosY >= (Screen.height - Screen.height * 0.25))
+			if(mousePosY >= (Screen.height - Screen.height * 0.1))
 			{
 				transform.Translate(transform.forward * speed);
 			}
-			if(mousePosY <= (Screen.height * 0.25))
+			if(mousePosY <= (Screen.height * 0.1))
 			{
 				transform.Translate(-transform.forward * speed);
 			}
